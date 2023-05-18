@@ -4,11 +4,20 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+
 import org.json.JSONObject;
 
+/**
+ * Fetch the Json data from URl and Count No. of Characters in a string
+ */
 public class FetchJson {
-  public int fetch() throws Exception  // Fetch the Json data from URl and Count No. of letters in a string
-    {
+    /**
+     * Fetch the Json data from URl and Count No. of Characters in a string
+     *
+     * @return String
+     * @throws Exception
+     */
+    public String fetch() throws Exception {
 
         URL url = new URL("https://jsonplaceholder.typicode.com/todos/1");
         URLConnection connection = url.openConnection();
@@ -26,27 +35,23 @@ public class FetchJson {
         String toBeWritten = response.toString();
         System.out.println(toBeWritten);
 
-        JSONObject object=new JSONObject(response.toString());
-        System.out.println("title : "+object.getString("title"));
+        JSONObject object = new JSONObject(response.toString());
+        System.out.println("title : " + object.getString("title"));
 
-        String title=object.getString("title");
-        int count = 0;
+        String title = object.getString("title");
 
-        //Counts each character except space
-        for(int i = 0; i < title.length(); i++) {
-            if(title.charAt(i) != ' ')
-                count++;
-        }
+        return title;
 
-        //Displays the total number of characters present in a sentence
-        System.out.println("Total number of characters in a sentence: " + count);
-        return count;
 
     }
-    public static void main(String[] args) throws Exception
-    {
-        FetchJson json=new FetchJson();
-        json.fetch();
+
+    public static void main(String[] args) throws Exception {
+        FetchJson json = new FetchJson();
+        Calculation calculation = new Calculation();
+
+        FetchAndCalculate fetchAndCalculate = new FetchAndCalculate(json, calculation);
+        fetchAndCalculate.getAndProcess();
+
     }
 }
 
