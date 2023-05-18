@@ -1,9 +1,12 @@
 package Json;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Properties;
 
 import org.json.JSONObject;
 
@@ -19,7 +22,8 @@ public class FetchJson {
      */
     public String fetch() throws Exception {
 
-        URL url = new URL("https://jsonplaceholder.typicode.com/todos/1");
+        Properties properties = readPropertiesFile("JsonFile.properties");
+        URL url = new URL(properties.getProperty("JSON_URL"));
         URLConnection connection = url.openConnection();
         BufferedReader reader = new BufferedReader(new InputStreamReader(
                 connection.getInputStream()));
@@ -42,7 +46,21 @@ public class FetchJson {
 
         return title;
 
+    }
 
+    public static Properties readPropertiesFile(String fileName) throws IOException {
+        FileInputStream fis = null;
+        Properties prop = null;
+        try {
+            fis = new FileInputStream(fileName);
+            prop = new Properties();
+            prop.load(fis);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        } finally {
+            fis.close();
+        }
+        return prop;
     }
 
     public static void main(String[] args) throws Exception {

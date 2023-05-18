@@ -7,15 +7,18 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import static org.mockito.Mockito.when;
+
+
 public class FetchAndCalculateTest {
 
     @Test
     public void fetchAndCalculateTest() throws Exception {
         FetchJson json = Mockito.mock(FetchJson.class);
-        Mockito.when(json.fetch()).thenReturn("title");
+        when(json.fetch()).thenReturn("fetch and calculate");
         Calculation calculation = new Calculation();
         FetchAndCalculate fetchAndCalculate = new FetchAndCalculate(json, calculation);
         int charLength = fetchAndCalculate.getAndProcess();
-        Assert.assertEquals(5, charLength);
+        Assert.assertEquals(17, charLength);
     }
 }

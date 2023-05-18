@@ -10,7 +10,6 @@ public class FetchAndCalculate {
         _cal = calculation;
     }
 
-
     public int getAndProcess() throws Exception {
         String title = _json.fetch();
         int charLength = _cal.charLength(title);
